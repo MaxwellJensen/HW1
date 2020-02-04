@@ -104,10 +104,16 @@ public class DungeonGame {
 			}
 			//Encounter/Gold/Room handling
 			if (justMoved) {
-				Room room = new Room();
-				encounter = room.enter(player);
-				if (encounter < 5){
-					combat(encounter, player);
+				//Room room = new Room();
+				Room room = map.getRooms()[player.getLocation()[0]][player.getLocation()[1]];
+				if(room.hasVisited() == false) {
+					encounter = room.enter(player);
+					if (encounter < 5){
+						combat(encounter, player);
+					}
+				}
+				else {
+					System.out.println("You already moved here");
 				}
 				justMoved = false;
 
