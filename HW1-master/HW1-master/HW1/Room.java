@@ -47,10 +47,6 @@ public class Room {
 				return monsterIndex;
 			}
 		}
-		
-		public void setVisited(boolean opt) {
-			this.visited = opt;
-		}
 
 		public boolean hasVisited () {
 			return this.visited;

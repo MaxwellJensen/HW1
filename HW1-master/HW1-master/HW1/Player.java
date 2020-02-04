@@ -9,7 +9,6 @@ public class Player {
     private double lootModifier;
     //Setting max hp so elixirs work properly
     int max_hp;
-    private boolean dead = false;
     public Player() {
     	//Move to play() in DungeonGame
     	Scanner input = new Scanner(System.in);
@@ -48,7 +47,6 @@ public class Player {
     	this.health -= damage;
     	if(this.health <= 0) {
     		System.out.println("You died! Your quest is over :(");
-
     	}
     }
 

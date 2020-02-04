@@ -12,7 +12,6 @@ public class DungeonGame {
 	private boolean hasAttacked = false;
 	private int encounter;
 	private Monster monster;
-	private int winstate = 0;
 
 	public DungeonGame(Player player, DungeonMap map) {
 		this.player = player;
@@ -103,22 +102,15 @@ public class DungeonGame {
 				System.out.println("NOT A VALID INPUT. TRY W A S or D");
 			}
 			if (justMoved) {
-				//Room room = new Room();
-				Room room = map.getRooms()[player.getLocation()[0]][player.getLocation()[1]];
-				if(room.hasVisited() == false) {
-					encounter = room.enter(player);
-					if (encounter < 5){
-						combat(encounter, player);
-					}
-				}
-				else {
-					System.out.println("You already moved here");
+				Room room = new Room();
+				encounter = room.enter(player);
+				if (encounter < 5){
+					combat(encounter, player);
 				}
 				justMoved = false;
-				
+
 			}
 
 		}
 	}
-
-	}
+}
