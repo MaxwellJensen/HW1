@@ -12,6 +12,7 @@ public class DungeonGame {
 	private boolean hasAttacked = false;
 	private int encounter;
 	private Monster monster;
+	private int winstate = 0;
 
 	public DungeonGame(Player player, DungeonMap map) {
 		this.player = player;
@@ -101,6 +102,7 @@ public class DungeonGame {
 			else {
 				System.out.println("NOT A VALID INPUT. TRY W A S or D");
 			}
+			//Encounter/Gold/Room handling
 			if (justMoved) {
 				Room room = new Room();
 				encounter = room.enter(player);
@@ -110,7 +112,12 @@ public class DungeonGame {
 				justMoved = false;
 
 			}
+			//Win Checking
+			if(player.checkForWin()) {
+				//Insert Stuff Here
+			}
 
 		}
 	}
-}
+
+	}
