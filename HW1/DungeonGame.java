@@ -102,6 +102,7 @@ public class DungeonGame {
 			else {
 				System.out.println("NOT A VALID INPUT. TRY W A S or D");
 			}
+			//Encounter/Gold/Room handling
 			if (justMoved) {
 				Room room = new Room();
 				encounter = room.enter(player);
@@ -110,6 +111,10 @@ public class DungeonGame {
 				}
 				justMoved = false;
 
+			}
+			//Win Checking
+			if(player.checkForWin()) {
+				//Insert Stuff Here
 			}
 
 		}

@@ -1,5 +1,8 @@
 import java.util.*;
 public class Player {
+	//constants
+	final int WIN_CONDITION = 100;
+
     public int health;
     //private int max_hp;
     private int gold;
@@ -65,14 +68,20 @@ public class Player {
     }
 
     public void onLoot(int gold) {
-    	this.gold += gold;
-    	if(this.gold >= 100){
-    		//Trigger GAME WIN CONDITION in Controller
-    	}
+		this.gold += gold;
+		//deleted the if statement here
+		//checking for win state now handled by
+		//Player.CheckForWin()
     }
     
     public void playerMove(int y,int x) {
     	this.playerPos[0] += y; 
     	this.playerPos[1] += x;
-    }
+	}
+	public boolean checkForWin() {
+		if(this.gold >= WIN_CONDITION)
+			return true;
+		else
+			return false;
+	}
 }
