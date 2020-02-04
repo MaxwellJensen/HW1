@@ -19,7 +19,9 @@ public class DungeonMap {
     	}
     }
     
-
+    public Room[][] getRooms(){
+    	return this.rooms;
+    }
     public int getHeight() {
     	return rooms.length;
     }
