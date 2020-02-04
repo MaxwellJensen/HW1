@@ -1,5 +1,8 @@
 import java.util.*;
 public class Player {
+	private final double LOOT_MODIFIER_THIEF = 0.2;
+	private final double LOOT_MODIFIER_WARRIOR = 0;
+
     private int health;
     //private int max_hp;
     private int gold;
