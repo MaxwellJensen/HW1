@@ -3,16 +3,20 @@ public class DungeonGame {
     private DungeonMap map;
     private Player player;
     private String choice;
-    private Scanner input = new Scanner(System.in);
+	private Scanner input = new Scanner(System.in);
+	//win condition, while false game continues to run
+	private boolean win;
     public DungeonGame(Player player, DungeonMap map) {
     	this.player = player;
-    	this.map = map;
+		this.map = map;
+		//while win condition is false, game continues to run
+		this.win = false;
     }
     public void play() {
     	//INIT Player and Starting Pos
     	//Allow player to move between rooms
     	//Store room data in 2D array
-    	while(true) {
+    	while(!this.win) {
     		//Accessor for player health / gold needed for condition to end when player dies / gold
     		System.out.print("Where do you wish to move?");
     		this.choice = input.nextLine();
