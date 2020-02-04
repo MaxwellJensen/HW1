@@ -39,7 +39,7 @@ public class DungeonMap {
     				//CHANGE TO T OR W
     			}
     			else {
-    				if(rooms[i][j].hasVisited() == false) {
+    				if(!rooms[i][j].hasVisited()) {
     					System.out.print("-");
     				}
     				else {

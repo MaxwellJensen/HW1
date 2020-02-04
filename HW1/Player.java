@@ -1,9 +1,6 @@
 import java.util.*;
 public class Player {
-	private final double LOOT_MODIFIER_THIEF = 0.2;
-	private final double LOOT_MODIFIER_WARRIOR = 0;
-
-    private int health;
+    public int health;
     //private int max_hp;
     private int gold;
     private int damage;
@@ -11,7 +8,8 @@ public class Player {
     private String playerClass;
     private double lootModifier;
     //Setting max hp so elixirs work properly
-    int max_hp = health;
+    int max_hp;
+    private boolean dead = false;
     public Player() {
     	//Move to play() in DungeonGame
     	Scanner input = new Scanner(System.in);
@@ -21,6 +19,7 @@ public class Player {
         	if(myInput.equals("Thief")) {
         		System.out.println("You are a Thief. Welcome to the Dungeon!");
         		this.health = 70;
+        		max_hp = this.health;
         		this.damage = 10;
         		this.lootModifier = .20;
         		break;
@@ -29,6 +28,7 @@ public class Player {
         	else if(myInput.equals("Warrior")) {
         		System.out.println("You are a Warrior. Welcome to the Dungeon!");
         		this.health = 100;
+        		max_hp = this.health;
         		this.damage = 15;
         		this.lootModifier = 0;
         		break;
@@ -43,14 +43,12 @@ public class Player {
     public int[] getLocation() {
     	return this.playerPos;
     }
-    public void attack(Monster target) {
-    	target.onHit(this.damage);
-    }
 
     public void onHit(int damage) {
     	this.health -= damage;
-    	if(health <= 0) {
+    	if(this.health <= 0) {
     		System.out.println("You died! Your quest is over :(");
+
     	}
     }
 
