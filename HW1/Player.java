@@ -56,7 +56,9 @@ public class Player {
     	}
     	return dead;
     }
-
+    public String getSymbol() {
+    	return this.playerSymbol;
+    }
     public void onHeal(int health) {
     	//Condition to make sure player cannot heal past full
     	if(health + this.health > this.max_hp) {
