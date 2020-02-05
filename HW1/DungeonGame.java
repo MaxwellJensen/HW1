@@ -50,6 +50,11 @@ public class DungeonGame {
 				System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
 			}
 		}
+		//Give player gold for beating monster
+		int droppedLoot = monster.generateLoot();
+		System.out.println(monster.getType() + " has dropped " + droppedLoot + " gold.");
+		player.onLoot(droppedLoot);
+		
 		map.print(player.getLocation());
 	}
 
