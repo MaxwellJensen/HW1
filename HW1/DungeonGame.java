@@ -50,6 +50,7 @@ public class DungeonGame {
 				System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
 			}
 		}
+		map.print(player.getLocation());
 	}
 
 	public void play() {
