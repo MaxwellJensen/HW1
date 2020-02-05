@@ -92,4 +92,10 @@ public class Player {
 			return false;
 		}
 	}
+	public int getGold() {
+		return this.gold;
+	}
+	public int getHealth() {
+		return this.health;
+	}
 }
