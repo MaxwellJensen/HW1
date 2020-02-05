@@ -32,7 +32,7 @@ public class Player {
         	}
         	else if(myInput.equals("Warrior")) {
         		System.out.println("You are a Warrior. Welcome to the Dungeon!");
-        		this.health = 100;
+        		this.health = 1;
         		this.playerSymbol = "W";
         		max_hp = this.health;
         		this.damage = 15;

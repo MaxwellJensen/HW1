@@ -46,8 +46,9 @@ public class DungeonGame {
                     break;
                 }
 				break;
-			} else if (!action.equals("Attack") && !action.equals("Flee")){
+			} else while (!action.equals("Attack") && !action.equals("Flee")){
 				System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
+				action = input.nextLine();
 			}
 		}
 		//Give player gold for beating monster
@@ -62,7 +63,7 @@ public class DungeonGame {
 		//INIT Player and Starting Pos
 		//Allow player to move between rooms
 		//Store room data in 2D array
-		while (true) {
+		while (winstate == 0) {
 			//Accessor for player health / gold needed for condition to end when player dies / gold
 			System.out.print("Where do you wish to move?");
 			this.choice = input.nextLine();
