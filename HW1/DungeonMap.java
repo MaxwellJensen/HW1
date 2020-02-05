@@ -38,7 +38,7 @@ public class DungeonMap {
     				System.out.print("+");
     			}
     			else if(i == playerLoc[0] && j == playerLoc[1]) {
-    				System.out.print("P");
+    				System.out.print(player.getSymbol());
     				//CHANGE TO T OR W
     			}
     			else {
