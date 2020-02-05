@@ -25,6 +25,8 @@ public class DungeonGame {
 		damage = monster.initStats(encounter);
 		monsterAlive = true;
 		while (monsterAlive == true) {
+			System.out.println("What will you do?\nAttack\nFlee");
+			action = input.nextLine();
 			if(!hasAttacked) {
 				dead = monster.attack(damage, player);
 				if(dead){
@@ -33,8 +35,6 @@ public class DungeonGame {
 				}
 				hasAttacked = true;
 			}
-			System.out.println("What will you do?\nAttack\nFlee");
-			action = input.nextLine();
 			if (action.equals("Attack")){
 				monsterAlive = monster.onHit(10);
 				hasAttacked = false;
@@ -132,6 +132,7 @@ public class DungeonGame {
 				}
 				else {
 					System.out.println("You already moved here");
+					map.print(player.getLocation());
 				}
 				justMoved = false;
 
