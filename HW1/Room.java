@@ -27,7 +27,7 @@ public class Room {
 					//GOLD CALC
 					//LOOTS 25 GOLD?
 				} else if (encounterType == 1) {
-					healthRestored  = ranGen.nextInt(10)+1;
+					healthRestored  = ranGen.nextInt(45)+1;
 					player.onHeal(healthRestored);
 					System.out.println("You found a healing elixir! You regain " + healthRestored + " hp.");
 

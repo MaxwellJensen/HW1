@@ -6,14 +6,12 @@ public class Monster {
     private String monsterType;
     private String action;
     private Scanner input = new Scanner(System.in);
-    private boolean dead = false;
 
     Random rng = new Random();
-    public boolean attack(int damage, Player target) {
+    public void attack(int damage, Player target) {
     	int dmgTurn = rng.nextInt(damage); //Should damage calculation be inclusive or exclusive?
     	System.out.println("The "+this.monsterType+" hits you for "+dmgTurn+" damage!");
-    	dead = target.onHit(dmgTurn);
-    	return dead;
+    	target.onHit(dmgTurn);
     }
 
     public boolean onHit(int damage) {
