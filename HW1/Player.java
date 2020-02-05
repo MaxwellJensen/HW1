@@ -1,5 +1,8 @@
 import java.util.*;
 public class Player {
+	//constants//
+	private final int WIN_CONDITION = 100;
+
     public int health;
     //private int max_hp;
     private int gold;
@@ -81,5 +84,12 @@ public class Player {
     public void playerMove(int y,int x) {
     	this.playerPos[0] += y; 
     	this.playerPos[1] += x;
-    }
+	}
+	public boolean checkForWin() {
+		if(WIN_CONDITION <= gold) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
