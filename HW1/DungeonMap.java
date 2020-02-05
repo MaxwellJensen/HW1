@@ -3,7 +3,7 @@ public class DungeonMap {
 	//Room[][] is a 2D array. Our Room class is different.
     private Room[][] rooms;
     private Player player;
-    public DungeonMap (int rows, int columns){
+    public DungeonMap (int rows, int columns, Player player){
     	
     	rooms = new Room[rows+2][columns+2];
     	//GENERATING ROOMS
