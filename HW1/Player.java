@@ -4,6 +4,7 @@ public class Player {
 	private final int WIN_CONDITION = 100;
 
     public int health;
+    private int winState = 0;
     //private int max_hp;
     private int gold;
     private String playerSymbol = "P";
@@ -32,7 +33,7 @@ public class Player {
         	}
         	else if(myInput.equals("Warrior")) {
         		System.out.println("You are a Warrior. Welcome to the Dungeon!");
-        		this.health = 1;
+        		this.health = 100;
         		this.playerSymbol = "W";
         		max_hp = this.health;
         		this.damage = 15;
@@ -74,11 +75,12 @@ public class Player {
     	}
     }
 
-    public void onLoot(int gold) {
+    public int onLoot(int gold) {
     	this.gold += gold;
-    	if(this.gold >= 100){
-    		//Trigger GAME WIN CONDITION in Controller
+    	if(this.gold >= WIN_CONDITION){
+    		winState = 1;
     	}
+    	return winState;
     }
     
     public void playerMove(int y,int x) {
