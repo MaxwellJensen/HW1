@@ -4,7 +4,7 @@ public class DungeonMap {
     private Room[][] rooms;
     private Player player;
     public DungeonMap (int rows, int columns, Player player){
-    	
+    	this.player = player;
     	rooms = new Room[rows+2][columns+2];
     	//GENERATING ROOMS
     	for(int i = 0;i<rooms.length;i++) {
