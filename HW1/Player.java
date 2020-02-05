@@ -3,7 +3,7 @@ public class Player {
     public int health;
     //private int max_hp;
     private int gold;
-    private String playerSymbol;
+    private String playerSymbol = "P";
     private int damage;
     private int[] playerPos = {1,1};
     private String playerClass;
