@@ -1,5 +1,25 @@
 import java.util.*;
 public class Monster {
+    //Constants//
+    private final String TYPE_GOBLIN = "Goblin";
+    private final String TYPE_ZOMBIE = "Zombie";
+    private final String TYPE_ORC = "Orc";
+    private final String TYPE_DENEKE = "Deneke";    
+
+    private final int LOOT_MIN_GOBLIN = 1;
+    private final int LOOT_MAX_GOBLIN = 10;
+
+    private final int LOOT_MIN_ZOMBIE = 7;
+    private final int LOOT_MAX_ZOMBIE = 12;
+
+    private final int LOOT_MIN_ORC = 9;
+    private final int LOOT_MAX_ORC = 14;
+
+    private final int LOOT_MIN_DENEKE = 11;
+    private final int LOOT_MAX_DENEKE = 16;
+    //Constants//
+
+    //Private Vars
     private int health;
     private int damage;
     private boolean monsterAlive = true;
@@ -9,6 +29,28 @@ public class Monster {
     private boolean dead = false;
 
     Random rng = new Random();
+
+    public int generateLoot() {
+        int returnLoot = 0;
+
+        //Generates loot based on monster type
+        //bound is MAX + MIN because in order to have a minimum bound we have to have a max bound += min bound, then subtract the min after the number is generated
+        if(monsterType == TYPE_GOBLIN) {
+            returnLoot = rng.nextInt(LOOT_MAX_GOBLIN + LOOT_MIN_GOBLIN) - LOOT_MIN_GOBLIN;
+        } else if(monsterType == TYPE_ZOMBIE) {
+            returnLoot = rng.nextInt(LOOT_MAX_ZOMBIE + LOOT_MIN_ZOMBIE) - LOOT_MIN_ZOMBIE;
+        } else if(monsterType == TYPE_ORC) {
+            returnLoot = rng.nextInt(LOOT_MAX_ORC + LOOT_MIN_ORC) - LOOT_MIN_ORC;
+        } else if(monsterType == TYPE_DENEKE) {
+            returnLoot = rng.nextInt(LOOT_MAX_DENEKE + LOOT_MIN_DENEKE) - LOOT_MIN_DENEKE;
+        } else {
+            System.out.print("ERROR GENERATING MONSTER LOOT");
+        }
+        
+        return returnLoot;
+    }
+
+    public void attack(int damage, Player target) {
     public boolean attack(int damage, Player target) {
     	int dmgTurn = rng.nextInt(damage); //Should damage calculation be inclusive or exclusive?
     	System.out.println("The "+this.monsterType+" hits you for "+dmgTurn+" damage!");
@@ -31,19 +73,19 @@ public class Monster {
         if (encounter == 0){
             this.health = 6;
             this.damage = 10;
-            this.monsterType = "Goblin";
+            this.monsterType = TYPE_GOBLIN;
         } else if (encounter == 1) {
             this.health = 12;
             this.damage = 15;
-            this.monsterType = "Zombie";
+            this.monsterType = TYPE_ZOMBIE;
         } else if (encounter == 2){
             this.health = 18;
             this.damage = 20;
-            this.monsterType = "Orc";
+            this.monsterType = TYPE_ORC;
         } else if (encounter == 3){
             this.damage = 5;
             this.health = 55;
-            this.monsterType = "Deneke";
+            this.monsterType = TYPE_DENEKE;
         }
         return this.damage;
     }
