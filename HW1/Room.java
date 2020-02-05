@@ -1,54 +1,40 @@
 import java.util.*;
 public class Room {
+	//CONSTANTS//
+	private final int MONSTER_CHANCE = 50;
+	private final int POTION_CHANCE = 10;
+	private final int GOLD_CHANCE = 40;
+
+	private final int ID_MONSTER = 0;
+	private final int ID_GOLD = 1;
+	private final int ID_POTION = 2;
+	//CONSTANTS//
+
 	private boolean visited;
-	private Random ranGen = new Random();
-	// assigned Random instance -C
-	private int encounterType;
-	private int numCoins;
-	private int healthRestored;
-	private int monsterIndex;
-	private String [] monsterName = {"Goblin", "Zombie", "Orc", "Deneke"};
+	private int roomContents;
 
 	public Room() {
 		this.visited = false;
+		Random rng = new Random();
+		int chance = rng.nextInt(99) + 1;
+		if(chance <= MONSTER_CHANCE){
+			roomContents = ID_MONSTER; 
+		} else if(chance <= MONSTER_CHANCE + GOLD_CHANCE) {
+			roomContents = ID_POTION;
+		} else if(chance <= MONSTER_CHANCE + GOLD_CHANCE +POTION_CHANCE) {
+			roomContents = ID_GOLD;
+		}
 	}
 		//what is this doing?
-
-		public int enter(Player player){
-			if (this.visited == true) {
-				System.out.println("You have already visited this room!");
-			} else {
-				//ROOM CALCULATIONS HERE
-				encounterType = ranGen.nextInt(3);
-				if (encounterType == 0) {
-					numCoins = ranGen.nextInt(25)+1;
-					player.onLoot(numCoins);
-					System.out.println("You found a bag of " + numCoins + " gold!");
-					//GOLD CALC
-					//LOOTS 25 GOLD?
-				} else if (encounterType == 1) {
-					healthRestored  = ranGen.nextInt(10)+1;
-					player.onHeal(healthRestored);
-					System.out.println("You found a healing elixir! You regain " + healthRestored + " hp.");
-
-				} else {
-					monsterIndex = ranGen.nextInt(4);
-					System.out.println("You encounter a " + monsterName[monsterIndex] + "!");
-					//MONSTER CALC
-				}
-				this.visited = true;
-
-
-			}
-			if (encounterType != 2){
-				return 5;
-			}
-			else{
-				return monsterIndex;
-			}
-		}
+	public int enter(){
+		visited = true;
+		return roomContents;
+	}
 
 		public boolean hasVisited () {
 			return this.visited;
+		}
+		public void setVisited(boolean input) {
+			visited = input;
 		}
 	}

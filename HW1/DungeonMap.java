@@ -12,16 +12,19 @@ public class DungeonMap {
     			//Every spot in our generated dungeon is assigned to the Room class.
     			rooms[i][j] = new Room();
     			//Testing
-    			//System.out.print(rooms[i][j].hasVisited());
-    			
-    			
+				//System.out.print(rooms[i][j].hasVisited());
+
     		}
-    	}
+		}
+		rooms[player.getPosition()[0]][player.getPosition()[1]].setVisited(true);
     }
     
     public Room[][] getRooms(){
     	return this.rooms;
-    }
+	}
+	public Room getRoom(int[] coordinates) {
+		return this.rooms[coordinates[0]][coordinates[1]];
+	}
 
     public int getHeight() {
     	return rooms.length;
@@ -32,6 +35,7 @@ public class DungeonMap {
     }
 
     public void print(int[] playerLoc) {
+
     	for(int i = 0;i<rooms.length;i++) {
     		for(int j = 0;j<rooms[i].length;j++) {
     			if(i == 0 || i == rooms.length - 1 || j == 0 || j == rooms[0].length - 1) {
@@ -52,7 +56,5 @@ public class DungeonMap {
     		}
     		System.out.println();
     	}
-		System.out.println("HP: "+player.getHealth());
-		System.out.println("Gold: "+player.getGold());
     }
 }
