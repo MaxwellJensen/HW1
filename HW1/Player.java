@@ -1,8 +1,5 @@
 import java.util.*;
 public class Player {
-	//constants
-	final int WIN_CONDITION = 100;
-
     public int health;
     //private int max_hp;
     private int gold;
@@ -26,7 +23,7 @@ public class Player {
         		this.damage = 10;
         		this.lootModifier = .20;
         		break;
-        		//gets bonus xp (implement by adding loot * lootModifier to loot)
+        		//gets bonus gold (implement by adding loot * lootModifier to loot)
         	}
         	else if(myInput.equals("Warrior")) {
         		System.out.println("You are a Warrior. Welcome to the Dungeon!");
@@ -47,12 +44,14 @@ public class Player {
     	return this.playerPos;
     }
 
-    public void onHit(int damage) {
+    public boolean onHit(int damage) {
     	this.health -= damage;
     	if(this.health <= 0) {
     		System.out.println("You died! Your quest is over :(");
+    		dead = true;
 
     	}
+    	return dead;
     }
 
     public void onHeal(int health) {
@@ -68,20 +67,14 @@ public class Player {
     }
 
     public void onLoot(int gold) {
-		this.gold += gold;
-		//deleted the if statement here
-		//checking for win state now handled by
-		//Player.CheckForWin()
+    	this.gold += gold;
+    	if(this.gold >= 100){
+    		//Trigger GAME WIN CONDITION in Controller
+    	}
     }
     
     public void playerMove(int y,int x) {
     	this.playerPos[0] += y; 
     	this.playerPos[1] += x;
-	}
-	public boolean checkForWin() {
-		if(this.gold >= WIN_CONDITION)
-			return true;
-		else
-			return false;
-	}
+    }
 }

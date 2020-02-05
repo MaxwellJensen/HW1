@@ -13,6 +13,7 @@ public class DungeonGame {
 	private int encounter;
 	private Monster monster;
 	private int winstate = 0;
+	private boolean dead;
 
 	public DungeonGame(Player player, DungeonMap map) {
 		this.player = player;
@@ -25,7 +26,11 @@ public class DungeonGame {
 		monsterAlive = true;
 		while (monsterAlive == true) {
 			if(!hasAttacked) {
-				monster.attack(damage, player);
+				dead = monster.attack(damage, player);
+				if(dead){
+					winstate = 2;
+					break;
+				}
 				hasAttacked = true;
 			}
 			System.out.println("What will you do?\nAttack\nFlee");
