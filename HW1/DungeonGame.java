@@ -124,9 +124,9 @@ public class DungeonGame {
 
 			}
 			//Win Checking
-			if(player.checkForWin()) {
+			//if(player.checkForWin()) {
 				//Insert Stuff Here
-			}
+			//}
 
 		}
 	}
