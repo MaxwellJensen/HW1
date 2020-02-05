@@ -39,7 +39,12 @@ public class DungeonGame {
 				monsterAlive = monster.onHit(10);
 				hasAttacked = false;
 			} else if (action.equals("Flee")){
-				System.out.println("You flee.");
+                System.out.println("You flee, but are struck as you run.");
+                dead = monster.attack(damage, player);
+                if(dead) {
+                    winstate = 2;
+                    break;
+                }
 				break;
 			} else if (!action.equals("Attack") && !action.equals("Flee")){
 				System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
