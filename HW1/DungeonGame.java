@@ -70,7 +70,6 @@ public class DungeonGame {
 					player.playerMove(0, 1);
 					justMoved = true;
 				}
-				map.print(player.getLocation());
 			}
 			//MOVES LEFT
 			else if (choice.equals("A") || choice.equals("a")) {
@@ -81,7 +80,7 @@ public class DungeonGame {
 					player.playerMove(0, -1);
 					justMoved = true;
 				}
-				map.print(player.getLocation());
+
 
 			}
 			//MOVES DOWN
@@ -93,7 +92,7 @@ public class DungeonGame {
 					player.playerMove(-1, 0);
 					justMoved = true;
 				}
-				map.print(player.getLocation());
+
 
 			}
 
@@ -107,7 +106,7 @@ public class DungeonGame {
 					player.playerMove(1, 0);
 					justMoved = true;
 				}
-				map.print(player.getLocation());
+
 			}
 			//CATCH CASE
 			else {
@@ -119,6 +118,9 @@ public class DungeonGame {
 				Room room = map.getRooms()[player.getLocation()[0]][player.getLocation()[1]];
 				if(room.hasVisited() == false) {
 					encounter = room.enter(player);
+					if (encounter == 5){
+						map.print(player.getLocation());
+					}
 					if (encounter < 5){
 						combat(encounter, player);
 					}
@@ -129,10 +131,7 @@ public class DungeonGame {
 				justMoved = false;
 
 			}
-			//Win Checking
-			//if(player.checkForWin()) {
-				//Insert Stuff Here
-			//}
+
 
 		}
 	}
