@@ -50,7 +50,7 @@ public class Monster {
         return returnLoot;
     }
 
-    public void attack(int damage, Player target) {
+
     public boolean attack(int damage, Player target) {
     	int dmgTurn = rng.nextInt(damage); //Should damage calculation be inclusive or exclusive?
     	System.out.println("The "+this.monsterType+" hits you for "+dmgTurn+" damage!");
