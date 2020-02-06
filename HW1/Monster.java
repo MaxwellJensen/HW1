@@ -29,13 +29,15 @@ public class Monster {
     //Variables//
     private int health;
     private int damage;
-    private boolean monsterAlive = true;
     private String monsterType;
-    private String action;
-    private Scanner input = new Scanner(System.in);
-    private boolean dead = false;
     private Random rng = new Random();
+    private boolean monsterAlive;
     //Variables//
+
+    public Monster(){
+        monsterAlive = true;
+        initStats(rng.nextInt(4));
+    }
 
     public int generateLoot() {
         int returnLoot = 0;
@@ -59,23 +61,25 @@ public class Monster {
     public String getType() {
         return this.monsterType;
     }
-
-    public boolean attack(int damage, Player target) {
-    	int dmgTurn = rng.nextInt(damage); //Should damage calculation be inclusive or exclusive?
+    public boolean checkLife() {
+        return monsterAlive;
+    }
+    public void kill() {
+        monsterAlive = false;
+    }
+    public void attack(Player target) {
+    	int dmgTurn = damage; //Should damage calculation be inclusive or exclusive?
     	System.out.println("The "+this.monsterType+" hits you for "+dmgTurn+" damage!");
-    	dead = target.onHit(dmgTurn);
-    	return dead;
+    	target.onHit(dmgTurn);
     }
 
-    public boolean onHit(int damage) {
+    public void onHit(int damage) {
     	System.out.println("You smack the "+ this.monsterType + " for "+damage+" damage!");
     	this.health -= damage;
     	if(this.health <= 0) {
     		System.out.println("The "+this.monsterType+" dies!");
     		monsterAlive = false;
-    		//WRITE CODE FOR LOOT DROP HERE?
     	}
-        return monsterAlive;
     }
 
     public int initStats(int encounter){
@@ -92,8 +96,8 @@ public class Monster {
             this.damage = DMG_ORC;
             this.monsterType = TYPE_ORC;
         } else if (encounter == 3){
-            this.damage = HP_DENEKE;
-            this.health = DMG_DENEKE;
+            this.damage = DMG_DENEKE;
+            this.health = HP_DENEKE;
             this.monsterType = TYPE_DENEKE;
         }
         return this.damage;

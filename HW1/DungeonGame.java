@@ -1,63 +1,80 @@
 import java.util.*;
 public class DungeonGame {
-    private final int WIN_CONDITION = 100;
+	//Constants//
+	//Win states
+	private final int STATE_LOSE = 2;
+	private final int STATE_WIN = 1;
+	private final int STATE_NEUTRAL = 0;
+
+	//monster IDs
+	private final int ID_MONSTER = 0;
+	private final int ID_GOLD = 1;
+	private final int ID_POTION = 2;
+	//Constants//
+
 	private DungeonMap map;
 	private Player player;
-	private String choice;
-	private String action = "";
-	private int damage;
-	private Scanner input = new Scanner(System.in);
-	private boolean justMoved = false;
-	private boolean monsterAlive;
-	private boolean hasAttacked = false;
-	private int encounter;
-	private int winState = 0;
-	private boolean dead;
+	private Scanner input;
+	private int winState;
 
 	public DungeonGame(Player player, DungeonMap map) {
+		input = new Scanner(System.in);
+		winState = STATE_NEUTRAL;
 		this.player = player;
 		this.map = map;
 	}
 
-	public void combat(int encounter, Player player){
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player inputPlayer) {
+		player = inputPlayer;
+	}
+	public void combat(){
+		//create monster
 		Monster monster = new Monster();
-		damage = monster.initStats(encounter);
-		monsterAlive = true;
-		while (monsterAlive == true) {
-			System.out.println("What will you do?\nAttack\nFlee");
-			action = input.nextLine();
-            while (!action.equals("Attack") && !action.equals("Flee")){
+		System.out.println("You encounter a " + monster.getType() + "!");
+
+		//Keep combat going until monster is dead
+		while ( monster.checkLife() ) {
+			String action;
+
+			System.out.print("What will you do?\nAttack\nFlee\n-");
+			action = input.nextLine().toLowerCase();
+			
+            while (!action.equals("attack") && !action.equals("flee")){
                 System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
                 action = input.nextLine();
             }
-			if(!hasAttacked) {
-				dead = monster.attack(damage, player);
-				if(dead){
-					winState = 2;
+			if (action.equals("attack")){
+				monster.onHit(player.getDamage());
+				//monster can't hit player if it's dead
+				if(monster.checkLife())
+					monster.attack(player);
+				//check for players death
+				if(!player.getLifeStatus()){
+					winState = STATE_LOSE;
 					break;
 				}
-				hasAttacked = true;
-			}
-			if (action.equals("Attack")){
-				monsterAlive = monster.onHit(10);
-				hasAttacked = false;
-			} else if (action.equals("Flee")) {
+			} else if (action.equals("flee")) {
                 System.out.println("You flee, but are struck as you run.");
-                dead = monster.attack(damage, player);
-                if (dead) {
-                    winState = 2;
-                    break;
-                }
+                monster.attack(player);
+                if(!player.getLifeStatus()){
+					winState = STATE_LOSE;
+					break;
+				}
                 break;
-            }
+			}
+			System.out.println("");
 		}
 		//Give player gold for beating monster
-        if(!dead) {
+        if(!monster.checkLife()) {
             int droppedLoot = monster.generateLoot();
             System.out.println(monster.getType() + " has dropped " + droppedLoot + " gold.");
-            winState = player.onLoot(droppedLoot);
-
-            map.print(player.getLocation());
+			player.onLoot(droppedLoot);
+			//checks to see if the player has enough gold to win
+			if(player.checkForWin())
+				winState = STATE_WIN;
         }
 	}
 
@@ -65,12 +82,16 @@ public class DungeonGame {
 		//INIT Player and Starting Pos
 		//Allow player to move between rooms
 		//Store room data in 2D array
-		while (winState == 0) {
+		boolean justMoved = false;
+		String choice;
+
+		while (winState == STATE_NEUTRAL) {
 			//Accessor for player health / gold needed for condition to end when player dies / gold
-			System.out.print("Where do you wish to move?");
-			this.choice = input.nextLine();
+			printStatus();
+			System.out.println("Where do you wish to move?");
+			choice = input.nextLine().toLowerCase();
 			//MOVES RIGHT
-			if (choice.equals("D") || choice.equals("d")) {
+			if (choice.equals("d")) {
 				if (player.getLocation()[1] + 1 == map.getWidth() - 1) {
 					System.out.println("THERE IS A WALL THERE!");
 				} else {
@@ -80,7 +101,7 @@ public class DungeonGame {
 				}
 			}
 			//MOVES LEFT
-			else if (choice.equals("A") || choice.equals("a")) {
+			else if (choice.equals("a")) {
 				if (player.getLocation()[1] - 1 == 0) {
 					System.out.println("THERE IS A WALL THERE!");
 				} else {
@@ -92,7 +113,7 @@ public class DungeonGame {
 
 			}
 			//MOVES DOWN
-			else if (choice.equals("W") || choice.equals("w")) {
+			else if (choice.equals("w")) {
 				if (player.getLocation()[0] - 1 == 0) {
 					System.out.println("THERE IS A WALL THERE!");
 				} else {
@@ -106,7 +127,7 @@ public class DungeonGame {
 
 
 			//MOVES UP
-			else if (choice.equals("S") || choice.equals("s")) {
+			else if (choice.equals("s")) {
 				if (player.getLocation()[0] + 1 == map.getHeight() - 1) {
 					System.out.println("THERE IS A WALL THERE!");
 				} else {
@@ -120,35 +141,58 @@ public class DungeonGame {
 			else {
 				System.out.println("NOT A VALID INPUT. TRY W A S or D");
 			}
-			//Encounter/Gold/Room handling
+
+			//the player has moved, we must now determine what to do based on what the contents in the room are
 			if (justMoved) {
-				//Room room = new Room();
-				Room room = map.getRooms()[player.getLocation()[0]][player.getLocation()[1]];
-				if(room.hasVisited() == false) {
-					encounter = room.enter(player);
-					if (encounter == 5){
-					    if (player.getGold() > WIN_CONDITION){
-					        winState = 1;
-                        }
-						map.print(player.getLocation());
-					}
-					if (encounter < 5){
-						combat(encounter, player);
-					}
-				}
-				else {
-					System.out.println("You already moved here");
-					map.print(player.getLocation());
-				}
+				//little seperator to seperate what just happened with what is now going on
+				System.out.println("______________________________");
+
+				checkRoom();
+				
 				justMoved = false;
 
 			}
 
 
 		}
-		if (winState == 1){
+		if (winState == STATE_WIN){
 		    System.out.println("You collected enough gold to escape the dungeon. You win!");
         }
 	}
-
+	/*private int checkForWin() {
+		//If the player is not alive, don't even check for win state, go straight to lose
+		if(player.getLifeStatus()){
+			//if the player has enough gold, return win state
+			if(player.getGold() >= WIN_CONDITION)
+				return STATE_WIN;
+			else
+				return STATE_NEUTRAL;
+		} else
+			return STATE_LOSE;
+	}*/
+	private void printStatus(){
+		map.print(player.getLocation());
+		player.print();
 	}
+	private void checkRoom(){
+		Random rng = new Random();
+		Room room = map.getRoom(player.getLocation());
+		//check to see if room has been visited
+		if(room.hasVisited()) {
+			System.out.println("You already moved here");
+		} else	{
+			int contents = room.enter();
+			if (contents == ID_MONSTER) {
+				combat();
+			} else if(contents == ID_GOLD){
+				int generatedGold = rng.nextInt(20) + 5;
+				System.out.println("You find "+ generatedGold +" in this room!");
+				player.onLoot(generatedGold);
+			} else if(contents == ID_POTION){
+				//player gains a minimum of 25 health, and a max of 75 health
+				int healthGained = rng.nextInt(50)+25;
+				player.onHeal(healthGained);
+			}
+		}
+	}
+}
