@@ -68,7 +68,7 @@ public class Monster {
         monsterAlive = false;
     }
     public void attack(Player target) {
-    	int dmgTurn = damage; //Should damage calculation be inclusive or exclusive?
+    	int dmgTurn = rng.nextInt(damage) + 1; //Should damage calculation be inclusive or exclusive?
     	System.out.println("The "+this.monsterType+" hits you for "+dmgTurn+" damage!");
     	target.onHit(dmgTurn);
     }
