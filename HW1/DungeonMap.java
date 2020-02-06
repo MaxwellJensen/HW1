@@ -56,5 +56,17 @@ public class DungeonMap {
     		}
     		System.out.println();
     	}
-    }
+	}
+	public boolean checkForAllClear() {
+		//this bool will get flipped off if we find a room that hasn't been visited
+		boolean allVisited = true;
+		for(int i = 0;i<rooms.length;i++) {
+    		for(int j = 0;j<rooms[i].length;j++) {
+				//checks if room hasn't been visited
+				if(!rooms[i][j].hasVisited())
+					allVisited = false;
+    		}
+		}
+		return allVisited;
+	}
 }

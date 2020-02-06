@@ -20,8 +20,8 @@ public class Monster {
     private final int LOOT_MAX_ORC = 14;
 
     private final String TYPE_DENEKE = "Deneke"; 
-    private final int HP_DENEKE = 5;
-    private final int DMG_DENEKE = 55;
+    private final int HP_DENEKE = 55;
+    private final int DMG_DENEKE = 5;
     private final int LOOT_MIN_DENEKE = 11;
     private final int LOOT_MAX_DENEKE = 16;
     //Constants//

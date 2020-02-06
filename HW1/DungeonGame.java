@@ -186,7 +186,7 @@ public class DungeonGame {
 				combat();
 			} else if(contents == ID_GOLD){
 				int generatedGold = rng.nextInt(20) + 5;
-				System.out.println("You find "+ generatedGold +" in this room!");
+				System.out.println("You find "+ generatedGold +" gold in this room!");
 				player.onLoot(generatedGold);
 			} else if(contents == ID_POTION){
 				//player gains a minimum of 25 health, and a max of 75 health
