@@ -43,8 +43,8 @@ public class DungeonGame {
 			System.out.print("What will you do?\n1: Attack\n2: Flee\n-");
 			action = input.nextLine().toLowerCase();
 			
-            while (!action.equals("1") && !action.equals("2")){
-                System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
+            while (!action.equals("1") && !action.equals("2") && !action.equals("attack") && !action.equals("Attack") && !action.equals("flee") && !action.equals("Flee")){
+                System.out.println("Not a valid input. Please enter 'Attack / attack / 1' or 'Flee / flee / 2'. ");
                 action = input.nextLine();
             }
 			if (action.equals("1") || action.equals("Attack") || action.equals("attack")){
