@@ -1,9 +1,9 @@
 import java.util.*;
 public class Room {
 	//CONSTANTS//
-	private final int MONSTER_CHANCE = 65;
-	private final int POTION_CHANCE = 5;
-	private final int GOLD_CHANCE = 30;
+	private final int MONSTER_CHANCE = 70;
+	private final int POTION_CHANCE = 15;
+	private final int GOLD_CHANCE = 15;
 
 	private final int ID_MONSTER = 0;
 	private final int ID_GOLD = 1;

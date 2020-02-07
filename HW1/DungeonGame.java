@@ -152,11 +152,13 @@ public class DungeonGame {
 				justMoved = false;
 
 			}
-
+			if(player.checkForWin())
+				winState = STATE_WIN;
 			if(map.checkForAllClear()){
 				map.print(player.getLocation());
 				winState = STATE_CLEAR;
 			}
+			
 		}
 		if (winState == STATE_WIN){
 		    System.out.println("You collected enough gold to escape the dungeon. YOU WIN!");
