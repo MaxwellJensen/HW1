@@ -67,7 +67,6 @@ public class Player {
     public void onHit(int damage) {
     	this.health -= damage;
     	if(this.health <= 0) {
-    		System.out.println("You died! Your quest is over :(");
     		dead = true;
 
     	}
