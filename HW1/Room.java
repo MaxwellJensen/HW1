@@ -1,9 +1,9 @@
 import java.util.*;
 public class Room {
 	//CONSTANTS//
-	private final int MONSTER_CHANCE = 50;
-	private final int POTION_CHANCE = 10;
-	private final int GOLD_CHANCE = 40;
+	private final int MONSTER_CHANCE = 65;
+	private final int POTION_CHANCE = 5;
+	private final int GOLD_CHANCE = 30;
 
 	private final int ID_MONSTER = 0;
 	private final int ID_GOLD = 1;
@@ -20,9 +20,9 @@ public class Room {
 		if(chance <= MONSTER_CHANCE){
 			roomContents = ID_MONSTER; 
 		} else if(chance <= MONSTER_CHANCE + GOLD_CHANCE) {
-			roomContents = ID_POTION;
-		} else if(chance <= MONSTER_CHANCE + GOLD_CHANCE +POTION_CHANCE) {
 			roomContents = ID_GOLD;
+		} else if(chance <= MONSTER_CHANCE + GOLD_CHANCE +POTION_CHANCE) {
+			roomContents = ID_POTION;
 		}
 	}
 		//what is this doing?

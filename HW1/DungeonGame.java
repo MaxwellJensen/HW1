@@ -2,9 +2,10 @@ import java.util.*;
 public class DungeonGame {
 	//Constants//
 	//Win states
-	private final int STATE_LOSE = 2;
-	private final int STATE_WIN = 1;
-	private final int STATE_NEUTRAL = 0;
+	private static final int STATE_LOSE = 2;
+	private static final int STATE_WIN = 1;
+	private static final int STATE_NEUTRAL = 0;
+	private static final int STATE_CLEAR = 3;
 
 	//monster IDs
 	private final int ID_MONSTER = 0;
@@ -38,7 +39,7 @@ public class DungeonGame {
 		//Keep combat going until monster is dead
 		while ( monster.checkLife() ) {
 			String action;
-
+			player.printHP();
 			System.out.print("What will you do?\nAttack\nFlee\n-");
 			action = input.nextLine().toLowerCase();
 			
@@ -86,7 +87,6 @@ public class DungeonGame {
 		String choice;
 
 		while (winState == STATE_NEUTRAL) {
-			//Accessor for player health / gold needed for condition to end when player dies / gold
 			printStatus();
 			System.out.println("Where do you wish to move?");
 			choice = input.nextLine().toLowerCase();
@@ -153,11 +153,18 @@ public class DungeonGame {
 
 			}
 
-
+			if(map.checkForAllClear()){
+				map.print(player.getLocation());
+				winState = STATE_CLEAR;
+			}
 		}
 		if (winState == STATE_WIN){
-		    System.out.println("You collected enough gold to escape the dungeon. You win!");
-        }
+		    System.out.println("You collected enough gold to escape the dungeon. YOU WIN!");
+		} else if (winState == STATE_CLEAR){
+			System.out.println("You ran out of rooms to clear, YOU LOSE!");
+		} else if (winState == STATE_LOSE) {
+			System.out.println("You have died, YOU LOSE!");
+		}
 	}
 	/*private int checkForWin() {
 		//If the player is not alive, don't even check for win state, go straight to lose

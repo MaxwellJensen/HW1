@@ -60,8 +60,8 @@ public class DungeonMap {
 	public boolean checkForAllClear() {
 		//this bool will get flipped off if we find a room that hasn't been visited
 		boolean allVisited = true;
-		for(int i = 0;i<rooms.length;i++) {
-    		for(int j = 0;j<rooms[i].length;j++) {
+		for(int i = 1;i<rooms.length - 1;i++) {
+    		for(int j = 1;j<rooms[i].length - 1;j++) {
 				//checks if room hasn't been visited
 				if(!rooms[i][j].hasVisited())
 					allVisited = false;
