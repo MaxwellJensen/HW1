@@ -40,14 +40,14 @@ public class DungeonGame {
 		while ( monster.checkLife() ) {
 			String action;
 			player.printHP();
-			System.out.print("What will you do?\nAttack\nFlee\n-");
+			System.out.print("What will you do?\n1: Attack\n2: Flee\n-");
 			action = input.nextLine().toLowerCase();
 			
-            while (!action.equals("attack") && !action.equals("flee")){
+            while (!action.equals("1") && !action.equals("2")){
                 System.out.println("Not a valid input. Please enter 'Attack' or 'Flee'. ");
                 action = input.nextLine();
             }
-			if (action.equals("attack")){
+			if (action.equals("1") || action.equals("Attack") || action.equals("attack")){
 				monster.onHit(player.getDamage());
 				//monster can't hit player if it's dead
 				if(monster.checkLife())
@@ -57,7 +57,7 @@ public class DungeonGame {
 					winState = STATE_LOSE;
 					break;
 				}
-			} else if (action.equals("flee")) {
+			} else if (action.equals("2") || action.equals("Flee") || action.equals("flee")) {
                 System.out.println("You flee, but are struck as you run.");
                 monster.attack(player);
                 if(!player.getLifeStatus()){
