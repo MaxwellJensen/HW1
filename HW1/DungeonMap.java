@@ -2,17 +2,15 @@
 public class DungeonMap {
 	//Room[][] is a 2D array. Our Room class is different.
     private Room[][] rooms;
-    private Player player;
+	private Player player;
     public DungeonMap (int rows, int columns, Player player){
     	this.player = player;
     	rooms = new Room[rows+2][columns+2];
     	//GENERATING ROOMS
     	for(int i = 0;i<rooms.length;i++) {
     		for(int j = 0;j<rooms[i].length;j++) {
-    			//Every spot in our generated dungeon is assigned to the Room class.
+    			//Every spot in our generated dungeon is initialized
     			rooms[i][j] = new Room();
-    			//Testing
-				//System.out.print(rooms[i][j].hasVisited());
 
     		}
 		}
@@ -34,6 +32,7 @@ public class DungeonMap {
     	return rooms[0].length;
     }
 
+	//Displays the map, since the player's location is not stored in this class, we request that information
     public void print(int[] playerLoc) {
 
     	for(int i = 0;i<rooms.length;i++) {
@@ -42,10 +41,12 @@ public class DungeonMap {
     				System.out.print("+");
     			}
     			else if(i == playerLoc[0] && j == playerLoc[1]) {
+					//Display player's location
     				System.out.print(player.getSymbol());
     				//CHANGE TO T OR W
     			}
     			else {
+					//Display rooms as visited or not visited
     				if(!rooms[i][j].hasVisited()) {
     					System.out.print("-");
     				}
@@ -57,6 +58,7 @@ public class DungeonMap {
     		System.out.println();
     	}
 	}
+	//This condition is triggered when the player has visisted all the rooms in the dungeon
 	public boolean checkForAllClear() {
 		//this bool will get flipped off if we find a room that hasn't been visited
 		boolean allVisited = true;

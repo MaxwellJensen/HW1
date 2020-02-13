@@ -21,16 +21,16 @@ public class Player {
 	//private variables
 
     public Player() {
-    	//Move to play() in DungeonGame
+		//there is a problem with this input variable, "resource leak" If i try to fix the problem by .close()-ing the variable at the end of the constructor, the program crashes.
 		Scanner input = new Scanner(System.in);
 		dead = false;
 		winState = false;
-
+		//Player needs to select a class
 		System.out.print("You enter the dungeon. What class are you? (Thief or Warrior) ");
 		
 		//toLowerCase() will convert the string to all lower cases so we don't have to check for that
 		String myInput = input.nextLine().toLowerCase();
-		
+		//Loop for processing player input
     	while(true) {
         	if(myInput.equals("thief")) {
         		System.out.println("You are a Thief. Welcome to the Dungeon!");
@@ -57,7 +57,8 @@ public class Player {
             	myInput = input.nextLine();
         	}
 		}
-    }
+	}
+	//outputs player location, used for connecting the player with the map object
     public int[] getLocation() {
     	return this.playerPos;
 	}
@@ -74,7 +75,8 @@ public class Player {
 	
     public String getSymbol() {
     	return this.playerSymbol;
-    }
+	}
+	//player gets healed
     public void onHeal(int health) {
 		System.out.println("You found a healing elixir!");
 
@@ -88,7 +90,7 @@ public class Player {
     		this.health += health;
     	}
     }
-
+	//player collects gold
     public void onLoot(int incomingGold) {
 		//modifies loot depending on class
 		incomingGold = (int) (incomingGold + incomingGold * lootModifier);
@@ -124,6 +126,7 @@ public class Player {
 	public int getDamage(){
 		return damage;
 	}
+	//displays the player's stats
 	public void print(){
 		System.out.println("HP: " + health + "\nGold: " + gold);
 	}

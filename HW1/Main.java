@@ -1,11 +1,11 @@
-import java.util.*;
 public class Main {
     public static void main(String[] args) {
-
+		//Default dungeon size variables, if args are not set
     	int rows = 10;
 		int columns = 10;
 		boolean defaultDimensions = false;
 
+			//We parse the program start args (custom dungeon size)
 			try {
 				rows = Integer.parseInt(args[0]);
 			} catch (NumberFormatException argumentNotInt) {
@@ -31,9 +31,11 @@ public class Main {
 				columns = 10;
 			}
 
+		//Initialize the objects
     	Player player = new Player();
     	DungeonMap myMap = new DungeonMap(rows, columns, player);
-    	DungeonGame game = new DungeonGame(player, myMap);
+		DungeonGame game = new DungeonGame(player, myMap);
+		//Start the game
     	game.play();
 				}
 }

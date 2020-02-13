@@ -62,17 +62,20 @@ public class Monster {
         return this.monsterType;
     }
     public boolean checkLife() {
+        //in retrospect, the monsterAlive boolean could be nullified by a method that checks for HP > 0
         return monsterAlive;
     }
+    //This method is never used
     public void kill() {
         monsterAlive = false;
     }
+    //afflict the player with damage
     public void attack(Player target) {
     	int dmgTurn = rng.nextInt(damage) + 1; //Should damage calculation be inclusive or exclusive?
     	System.out.println("The "+this.monsterType+" hits you for "+dmgTurn+" damage!");
     	target.onHit(dmgTurn);
     }
-
+    //the monster is hit by the player
     public void onHit(int damage) {
     	System.out.println("You smack the "+ this.monsterType + " for "+damage+" damage!");
     	this.health -= damage;
@@ -81,7 +84,8 @@ public class Monster {
     		monsterAlive = false;
     	}
     }
-
+    //This sets the class stats based on what type the monster is
+    //is called by the constructor, but can also be called to generate the monster again.
     public int initStats(int encounter){
         if (encounter == 0){
             this.health = HP_GOBLIN;
